@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      font-family: DejaVu Sans, sans-serif;
+      margin: 5px;
+    }
+
+    .all-products {
+      width: 100%;
+      border-collapse: collapse;
+      page-break-inside: avoid;
+      font-weight: normal;
+
+    }
+
+    td {
+      vertical-align: middle;
+      padding: 4px;
+      text-align: center;
+    }
+
+    .top-tr {
+      width: 33.33%;
+      height: 150px;
+
+    }
+
+    .bottom-tr {
+      height: 200px;
+    }
+
+
+    .name {
+      font-weight: 300;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .variant {
+      font-weight: 300;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <table class="all-products">
+    {% for product in products %}
+    {% if forloop.counter0|divisibleby:3 %}
+    <tr style="border: 1px solid black;">
+      {% endif %}
+
+      <td class="top-tr">
+        <div class="name">
+          {{ product.name }}
+          {% if product.variant %}
+          <span class="variant">({{ product.variant }})</span>
+          {% endif %}
+        </div>
+
+        <div style="width: 100%; font-size: 20px;">
+          <span style="text-align: left;">
+            MRP: {{ product.mrp }}
+          </span>
+          <span style="color: white;">__</span>
+          <span style="text-align: right;">
+            Price: {{ product.price }}
+
+          </span>
+        </div>
+
+      </td>
+
+      {% if forloop.counter|divisibleby:3 %}
+    </tr>
+    {% endif %}
+
+    {# Page break after 15 items #}
+    {% if forloop.counter|divisibleby:15 %}
+  </table>
+  <div style="page-break-before: always;"></div>
+  <table>
+    {% endif %}
+    {% endfor %}
+  </table>
+</body>
+
+</html>
