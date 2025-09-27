@@ -5,15 +5,18 @@
   <style>
     body {
       font-family: DejaVu Sans, sans-serif;
-      margin: 5px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    div {
+      margin: 0;
     }
 
     .all-products {
       width: 100%;
-      border-collapse: collapse;
       page-break-inside: avoid;
       font-weight: normal;
-
     }
 
     td {
@@ -23,28 +26,35 @@
     }
 
     .top-tr {
-      width: 33.33%;
-      height: 150px;
-
+      width: 33%;
+      height: 145px;
+      border: 2px solid #ccc;
     }
 
     .bottom-tr {
       height: 200px;
     }
 
+    .all-product-data {
+      /* border: 1px solid green; */
+    }
 
     .name {
       font-weight: 300;
       font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 14px;
+      color: #111;
     }
 
     .variant {
-      font-weight: 300;
       font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      font-size: 20px;
-      margin-bottom: 10px;
+    }
+
+    .rates {
+      font-size: 16px;
+      font-weight: 500;
+      color: #404040;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
   </style>
 </head>
@@ -53,36 +63,37 @@
   <table class="all-products">
     {% for product in products %}
     {% if forloop.counter0|divisibleby:3 %}
-    <tr style="border: 1px solid black;">
+    <tr>
       {% endif %}
 
       <td class="top-tr">
-        <div class="name">
-          {{ product.name }}
-          {% if product.variant %}
-          <span class="variant">({{ product.variant }})</span>
-          {% endif %}
+        <div class="all-product-data">
+          <div class="name">
+            {{ product.name }}
+            {% if product.variant %}
+            <span class="variant">({{ product.variant }})</span>
+            {% endif %}
+          </div>
+
+          <div style="width: 100%;" class="rates">
+            <span style="text-align: left;">
+              MRP: {{ product.mrp }}
+            </span>
+            <span style="color: white;">____</span>
+            <span style="text-align: right;">
+              Price: {{ product.price }}
+
+            </span>
+          </div>
         </div>
-
-        <div style="width: 100%; font-size: 20px;">
-          <span style="text-align: left;">
-            MRP: {{ product.mrp }}
-          </span>
-          <span style="color: white;">__</span>
-          <span style="text-align: right;">
-            Price: {{ product.price }}
-
-          </span>
-        </div>
-
       </td>
 
       {% if forloop.counter|divisibleby:3 %}
     </tr>
     {% endif %}
 
-    {# Page break after 15 items #}
-    {% if forloop.counter|divisibleby:15 %}
+    {# Page break after 21 items #}
+    {% if forloop.counter|divisibleby:21 %}
   </table>
   <div style="page-break-before: always;"></div>
   <table>
